@@ -29,7 +29,7 @@
     "portrait": true,
     "upsideDown": false
   },
-  "packageName": "org.cocos2d.GameWaterDrop",
+  "packageName": "org.cocos2d.GameWaterDropCustomer",
   "qqplay": {
     "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait",

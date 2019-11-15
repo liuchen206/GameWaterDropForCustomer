@@ -347,8 +347,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 449,
-      "height": 100
+      "width": 448,
+      "height": 104
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -504,8 +504,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 375,
-      "height": 125
+      "width": 337,
+      "height": 124
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -554,7 +554,7 @@
       "__uuid__": "88f5b869-0bbe-4b2c-afac-731a71ed7359"
     },
     "_type": 1,
-    "_sizeMode": 0,
+    "_sizeMode": 1,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -578,10 +578,10 @@
     "alignMode": 0,
     "_target": null,
     "_alignFlags": 45,
-    "_left": 0.5,
-    "_right": 0.5,
-    "_top": 0,
-    "_bottom": 0,
+    "_left": 19.5,
+    "_right": 19.5,
+    "_top": 0.5,
+    "_bottom": 0.5,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -1376,7 +1376,7 @@
     "_enabled": true,
     "_materials": [],
     "_armatureName": "lianxushouji",
-    "_animationName": "lianxushouji",
+    "_animationName": "",
     "_preCacheMode": 0,
     "_cacheMode": 0,
     "playTimes": -1,
@@ -1395,7 +1395,7 @@
       "__uuid__": "10d8a97d-f8ea-4c96-aa9f-41c2805e1f97"
     },
     "_N$_defaultArmatureIndex": 0,
-    "_N$_animationIndex": 1,
+    "_N$_animationIndex": 0,
     "_N$_defaultCacheMode": 0,
     "_N$timeScale": 1,
     "_N$debugBones": false,
@@ -2208,7 +2208,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 86.72,
+      "width": 74.72,
       "height": 45
     },
     "_anchorPoint": {
@@ -2218,7 +2218,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 0,
+      "x": -1.4210854715202004e-14,
       "y": 0,
       "z": 0
     },
@@ -2267,8 +2267,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 35,
-      "height": 36
+      "width": 23,
+      "height": 32
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2366,7 +2366,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 20,
+      "x": 14,
       "y": 0,
       "z": 0
     },
@@ -2427,7 +2427,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 86.72,
+      "width": 74.72,
       "height": 45
     },
     "_resize": 1,
@@ -2461,8 +2461,8 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 45,
-    "_left": 62.64,
-    "_right": 62.64000000000001,
+    "_left": 68.63999999999999,
+    "_right": 68.64000000000001,
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
@@ -6869,7 +6869,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 71.14,
+      "width": 59.14,
       "height": 45
     },
     "_anchorPoint": {
@@ -6930,8 +6930,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 35,
-      "height": 36
+      "width": 23,
+      "height": 32
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6980,7 +6980,7 @@
       "__uuid__": "72078860-9201-43eb-a86b-d264ad9c0789"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -7042,7 +7042,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 20,
+      "x": 14,
       "y": 0,
       "z": 0
     },
@@ -7114,7 +7114,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 71.14,
+      "width": 59.14,
       "height": 45
     },
     "_resize": 1,
@@ -7148,8 +7148,8 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 45,
-    "_left": 70.43,
-    "_right": 70.43,
+    "_left": 76.43,
+    "_right": 76.43,
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
