@@ -1,0 +1,33 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "tipsClip",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.75,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "scaleY": [
+        {
+          "frame": 0,
+          "value": 0
+        },
+        {
+          "frame": 0.4166666666666667,
+          "value": 1.2
+        },
+        {
+          "frame": 0.5833333333333334,
+          "value": 0.8
+        },
+        {
+          "frame": 0.75,
+          "value": 1
+        }
+      ]
+    }
+  },
+  "events": []
+}

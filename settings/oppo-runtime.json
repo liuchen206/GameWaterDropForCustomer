@@ -1,0 +1,18 @@
+{
+  "certificatePath": "C:\\Users\\Administrator\\Desktop\\androidKey\\oppo_yushi\\certificate.pem",
+  "deviceOrientation": "portrait",
+  "disabledMode": "",
+  "icon": "C:\\Users\\Administrator\\Desktop\\头像.png",
+  "logLevel": "log",
+  "minPlatformVersion": "1050",
+  "name": "泡泡大作战",
+  "npmPath": "",
+  "package": "com.yushi.net.nearme.gamecenter",
+  "privatePath": "C:\\Users\\Administrator\\Desktop\\androidKey\\oppo_yushi\\private.pem",
+  "showNpmPath": false,
+  "tinyPackageMode": false,
+  "tinyPackageServer": "",
+  "useDebugKey": false,
+  "versionCode": "12",
+  "versionName": "1.0.12"
+}
