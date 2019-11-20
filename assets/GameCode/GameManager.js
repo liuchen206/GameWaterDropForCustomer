@@ -238,8 +238,8 @@ cc.Class({
     // 设置比赛中的得分数
     setScore(score) {
         this.playerScore = score;
-        var scoreString = score < 10 ? ('0' + score) : score;
-        this.scoreLabel.string = "得分:" + scoreString;
+        var scoreString = score*10;
+        this.scoreLabel.string = scoreString + "";
     },
     // 设置比赛中的剩余时间
     setTime(timeInSec) {
@@ -464,20 +464,21 @@ cc.Class({
         var playerAILength = this.getAllPlayerAILength();
         if (playerAILength <= 0) {
             cc.log("只剩自己");
-            var resultList = this.losePlayerList.concat(this.stillPlayingList);
-            resultList.sort((a, b) => {
-                if (a.score == 0 && b.score == 0) {
-                    return 0;
-                }
-                if (a.score == 0) {
-                    return 1;
-                }
-                if (b.score == 0) {
-                    return -1;
-                }
-                return b.score - a.score;
-            });
-            this.endGameIWin(1, resultList);
+            // var resultList = this.losePlayerList.concat(this.stillPlayingList);
+            // resultList.sort((a, b) => {
+            //     if (a.score == 0 && b.score == 0) {
+            //         return 0;
+            //     }
+            //     if (a.score == 0) {
+            //         return 1;
+            //     }
+            //     if (b.score == 0) {
+            //         return -1;
+            //     }
+            //     return b.score - a.score;
+            // });
+            // this.endGameIWin(1, resultList);
+            this.endGame("", "", 1);
 
             this.playWinAudio();
         }
@@ -503,7 +504,8 @@ cc.Class({
                 }
                 return b.score - a.score;
             });
-            this.endGameIWin(rankNum, resultList);
+            // this.endGameIWin(rankNum, resultList);
+            this.endGame("", "", rankNum);
 
             this.playWinAudio();
         }

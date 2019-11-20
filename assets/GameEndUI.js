@@ -5,8 +5,14 @@ cc.Class({
         scoreLabel: cc.Label,
         rankLabel: cc.Label,
         gameEndInfo: cc.Label,
+        gameEndInfoRoot: cc.Node,
         BtnUp: cc.Button,
         BtnDowm: cc.Button,
+
+        lightNode:cc.Node,
+        spriteWinner:cc.SpriteFrame,
+        spriteLoser:cc.SpriteFrame,
+        spriteRank:cc.Sprite,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -29,7 +35,7 @@ cc.Class({
         this.HideADBanner();
     },
     start() {
-
+        this.lightNode.runAction(cc.repeatForever(cc.rotateBy(1,180)));
     },
 
     // update (dt) {},
@@ -51,8 +57,17 @@ cc.Class({
             event.stopPropagation();
         });
         this.scoreLabel.string = "积分：" + score;
-        this.rankLabel.string = "第" + rank + "名";
+        this.rankLabel.string = rank;
         this.gameEndInfo.string = contentString;
+        if(contentString == ""){
+            this.gameEndInfoRoot.active = false;
+        }
+        if(rank > 1){
+            this.spriteRank.spriteFrame = this.spriteLoser;
+        }else{
+            this.gameEndInfoRoot.active = false;
+            this.spriteRank.spriteFrame = this.spriteWinner;
+        }
         return this;
     },
     SetBtnUpHandler(text, eventHandler) {
