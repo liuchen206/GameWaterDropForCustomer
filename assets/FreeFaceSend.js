@@ -80,22 +80,15 @@ cc.Class({
             }
         }
         // 用没有获得的index 初始化界面
-        this._armatureDisplay = this.node.getChildByName("faceDisplay").getChildByName("faceDB").getComponent(dragonBones.ArmatureDisplay);
-        this._armature = this._armatureDisplay.armature();
-        this._armatureDisplay.dragonAsset = this.dragonBonesAssetList[unGetFaceIndex];
-        this._armatureDisplay.dragonAtlasAsset = this.dragonBonesAtlasList[unGetFaceIndex];
-        this.faceActName = ["kongxianshi", "lianxushouji", "xiaomiewanjia", "biworuoxiao", "biwoqiangda"];
-        this.playerFaceAct(this.faceActName[0], -1);
+        cc.loader.loadRes("staticFace/b" + (unGetFaceIndex+1) + "/" + 5 + ".png", 'png', (err, texture) => {
+            cc.log(err);
+            var spriteFromNet = this.node.getChildByName("faceDisplay").getChildByName("faceDB").getComponent(cc.Sprite);
+            spriteFromNet.spriteFrame = new cc.SpriteFrame(texture);
+        })
 
         // 记录下这个要赠送的表情id
         this.FaceIndexToSend = unGetFaceIndex;
         cc.log("unGetFaceIndex", unGetFaceIndex);
-    },
-    playerFaceAct(actName, playTimes) {
-        cc.log("actName", actName);
-        this._armatureDisplay.armatureName = actName;
-        this._armature = this._armatureDisplay.armature();
-        this._armature.animation.fadeIn(actName, -1, playTimes, 0);
     },
     // update (dt) {},
 

@@ -910,7 +910,7 @@
     "_id": ""
   },
   {
-    "__type__": "dragonBones.ArmatureDisplay",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -918,31 +918,21 @@
     },
     "_enabled": true,
     "_materials": [],
-    "_armatureName": "kongxianshi",
-    "_animationName": "kongxianshi",
-    "_preCacheMode": 0,
-    "_cacheMode": 0,
-    "playTimes": -1,
-    "premultipliedAlpha": false,
-    "_armatureKey": "317d2f9e-c08e-453e-9df4-54f27d18b8bd#13654e73-9532-49c2-a96b-883ece38d7e2",
-    "_accTime": 0,
-    "_playCount": 0,
-    "_frameCache": null,
-    "_curFrame": null,
-    "_playing": false,
-    "_armatureCache": null,
-    "_N$dragonAsset": {
-      "__uuid__": "317d2f9e-c08e-453e-9df4-54f27d18b8bd"
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": null,
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
     },
-    "_N$dragonAtlasAsset": {
-      "__uuid__": "13654e73-9532-49c2-a96b-883ece38d7e2"
-    },
-    "_N$_defaultArmatureIndex": 0,
-    "_N$_animationIndex": 1,
-    "_N$_defaultCacheMode": 0,
-    "_N$timeScale": 1,
-    "_N$debugBones": false,
-    "_N$enableBatch": false,
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": null,
     "_id": ""
   },
   {
@@ -1646,70 +1636,8 @@
     "coinLabel": {
       "__id__": 16
     },
-    "dragonBonesAssetList": [
-      {
-        "__uuid__": "317d2f9e-c08e-453e-9df4-54f27d18b8bd"
-      },
-      {
-        "__uuid__": "aedba482-09e2-47d3-822e-891ce8a4efb0"
-      },
-      {
-        "__uuid__": "e2d02f19-f8db-4238-a7b5-6cb0ca122603"
-      },
-      {
-        "__uuid__": "aa2277ee-5111-4573-9bee-67d4d0517cfd"
-      },
-      {
-        "__uuid__": "9ea98c31-6e22-4667-9a00-1c04bf36c99d"
-      },
-      {
-        "__uuid__": "94774d28-26a4-455f-b94b-ffcd03354710"
-      },
-      {
-        "__uuid__": "6dc5ce2c-6b8b-4d37-a6eb-00b010ccb376"
-      },
-      {
-        "__uuid__": "20fb3e21-9ff8-48f1-905f-25df050c6757"
-      },
-      {
-        "__uuid__": "ea1f0d0c-953d-4ca6-8968-cbcb7e427e52"
-      },
-      {
-        "__uuid__": "8fa49e8d-3552-4c12-ab5d-403b053f3f7f"
-      }
-    ],
-    "dragonBonesAtlasList": [
-      {
-        "__uuid__": "13654e73-9532-49c2-a96b-883ece38d7e2"
-      },
-      {
-        "__uuid__": "fef15337-e020-48f8-954f-e5f7c269c341"
-      },
-      {
-        "__uuid__": "3b96ef3a-000b-4dda-80c2-6f61f16a0a28"
-      },
-      {
-        "__uuid__": "02558837-ba0b-412f-ba48-472a4ed628d5"
-      },
-      {
-        "__uuid__": "c4a7cd68-2a13-4df7-9447-939f8696a2f4"
-      },
-      {
-        "__uuid__": "d29f7604-74f4-4e6d-9161-a7eb233886de"
-      },
-      {
-        "__uuid__": "10d8a97d-f8ea-4c96-aa9f-41c2805e1f97"
-      },
-      {
-        "__uuid__": "064d98e9-38a4-42ba-9582-fe56631fb8f3"
-      },
-      {
-        "__uuid__": "7e923e01-e8bc-4517-b919-ce1c149dee87"
-      },
-      {
-        "__uuid__": "75066204-173b-4378-b468-37335b03a269"
-      }
-    ],
+    "dragonBonesAssetList": [],
+    "dragonBonesAtlasList": [],
     "BtnBuy": {
       "__id__": 34
     },

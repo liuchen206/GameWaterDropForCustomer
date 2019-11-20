@@ -12,82 +12,77 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        coinLabel : cc.Label,
-        dragonBonesAssetList:[dragonBones.DragonBonesAsset],
-        dragonBonesAtlasList:[dragonBones.DragonBonesAtlasAsset],
-        BtnBuy:cc.Button,
-        BtnCancel:cc.Button,
+        coinLabel: cc.Label,
+        dragonBonesAssetList: [dragonBones.DragonBonesAsset],
+        dragonBonesAtlasList: [dragonBones.DragonBonesAtlasAsset],
+        BtnBuy: cc.Button,
+        BtnCancel: cc.Button,
+
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
 
-    start () {
+    start() {
         // this.init(100,1);
     },
 
     // update (dt) {},
-        //初始化方法，两个可选的字符串参数
-    init: function(coins, faceIndex){
-        this.node.on("touchstart", function(event, touch){
+    //初始化方法，两个可选的字符串参数
+    init: function (coins, faceIndex) {
+        this.node.on("touchstart", function (event, touch) {
             event.stopPropagation();
         });
 
-        this.node.on("touchmove", function(event, touch){
+        this.node.on("touchmove", function (event, touch) {
             event.stopPropagation();
         });
 
-        this.node.on("touchcancel", function(event, touch){
+        this.node.on("touchcancel", function (event, touch) {
             event.stopPropagation();
         });
 
-        this.node.on("touchend", function(event, touch){
+        this.node.on("touchend", function (event, touch) {
             event.stopPropagation();
         });
-        cc.log('coins',coins)
-        this.coinLabel.string = coins+"";
+        cc.log('coins', coins)
+        this.coinLabel.string = coins + "";
 
-        this._armatureDisplay = this.node.getChildByName("faceDisplay").getChildByName("faceDB").getComponent(dragonBones.ArmatureDisplay);
-        this._armature = this._armatureDisplay.armature();
-        this._armatureDisplay.dragonAsset = this.dragonBonesAssetList[faceIndex];
-        this._armatureDisplay.dragonAtlasAsset =  this.dragonBonesAtlasList[faceIndex];
-        this.faceActName = ["kongxianshi","lianxushouji","xiaomiewanjia","biworuoxiao","biwoqiangda"];
-        this.playerFaceAct(this.faceActName[0],-1);
+        cc.loader.loadRes("staticFace/b" + (faceIndex+1) + "/" + 5 + ".png", 'png', (err, texture) => {
+            cc.log(err);
+            var spriteFromNet = this.node.getChildByName("faceDisplay").getChildByName("faceDB").getComponent(cc.Sprite);
+            spriteFromNet.spriteFrame = new cc.SpriteFrame(texture);
+        })
         return this;
     },
-    playerFaceAct(actName,playTimes){
-        cc.log("actName",actName);
-        this._armatureDisplay.armatureName = actName;
-        this._armature = this._armatureDisplay.armature();
-        this._armature.animation.fadeIn(actName, -1, playTimes, 0);
-    },
-    SetBtnBuyHandler(eventHandler){
-        if(typeof eventHandler == "undefined"){
+
+    SetBtnBuyHandler(eventHandler) {
+        if (typeof eventHandler == "undefined") {
             var clickEventHandler = new cc.Component.EventHandler();
             clickEventHandler.target = this.node;
             clickEventHandler.component = "BuyFace",
-            clickEventHandler.handler = "close";
+                clickEventHandler.handler = "close";
             clickEventHandler.customEventData = "";
             this.BtnBuy.clickEvents.push(clickEventHandler);
-        }else{
+        } else {
             this.BtnBuy.clickEvents.push(eventHandler);
         }
     },
-    SetBtnCancelHandler(eventHandler){
-        if(typeof eventHandler == "undefined"){
+    SetBtnCancelHandler(eventHandler) {
+        if (typeof eventHandler == "undefined") {
             var clickEventHandler = new cc.Component.EventHandler();
             clickEventHandler.target = this.node;
             clickEventHandler.component = "BuyFace",
-            clickEventHandler.handler = "close";
+                clickEventHandler.handler = "close";
             clickEventHandler.customEventData = "";
             this.BtnCancel.clickEvents.push(clickEventHandler);
-        }else{
+        } else {
             this.BtnCancel.clickEvents.push(eventHandler);
         }
     },
     //关闭对话框
-    close: function(event, customEventData){
+    close: function (event, customEventData) {
         this.node.destroy();
     },
 });

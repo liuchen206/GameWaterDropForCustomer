@@ -85,7 +85,7 @@ cc.Class({
         // cc.log('bbbb')
         this.checkAndShowSendFace();
     },
-    checkAndShowSendFace(){
+    checkAndShowSendFace() {
         // 找出一个为获得的表情
         var maxFaceIndex = 10;
         var isNeedSend = false;
@@ -97,13 +97,13 @@ cc.Class({
                     isgetThis = true;
                 }
             }
-            if(isgetThis == false){
+            if (isgetThis == false) {
                 isNeedSend = true;
-                cc.log("isNeedSend",i);
+                cc.log("isNeedSend", i);
                 break;
             }
         }
-        if(isNeedSend == true){
+        if (isNeedSend == true) {
             var sendNode = cc.instantiate(this.sendFacePrefab);
             cc.find("Canvas/PopWindow").removeAllChildren();
             cc.find("Canvas/PopWindow").addChild(sendNode);
@@ -346,7 +346,9 @@ cc.Class({
             // this.showTips("weixin only");
         } else {
             // 在适合的场景显示 Banner 广告
-            this.bannerAd.hide();
+            if (BannerADSinglen) {
+                this.bannerAd.hide();
+            }
         }
     },
     onDestroy() {
@@ -355,20 +357,15 @@ cc.Class({
     updateLoginShowFace() {
         var userData = getUserFaceData();
         var faceIndex = userData.currentSelectIndex;
-        // var faceIndex = 5;
-        this._armatureDisplay = cc.find("Canvas/bg/faceDisplay/faceDB").getComponent(dragonBones.ArmatureDisplay);
-        this._armature = this._armatureDisplay.armature();
-        this._armatureDisplay.dragonAsset = this.dragonBonesAssetList[faceIndex];
-        this._armatureDisplay.dragonAtlasAsset = this.dragonBonesAtlasList[faceIndex];
-        this.faceActName = ["kongxianshi","lianxushouji","xiaomiewanjia","biworuoxiao","biwoqiangda"];
-        this.playerFaceAct(this.faceActName[0], -1);
+
+
+        cc.loader.loadRes("staticFace/b" + (faceIndex + 1) + "/" + 5 + ".png", 'png', (err, texture) => {
+            cc.log(err);
+            var spriteFromNet = cc.find("Canvas/bg/faceDisplay/faceDB").getComponent(cc.Sprite);
+            spriteFromNet.spriteFrame = new cc.SpriteFrame(texture);
+        })
     },
-    playerFaceAct(actName, playTimes) {
-        cc.log("actName", actName);
-        this._armatureDisplay.armatureName = actName;
-        this._armature = this._armatureDisplay.armature();
-        this._armature.animation.fadeIn(actName, -1, playTimes, 0);
-    },
+
     updateFaceSelect() {
         var maxFaceIndex = 10;
         var maxBtn = 10;

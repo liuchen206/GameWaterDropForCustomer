@@ -91,21 +91,38 @@ cc.Class({
             this.initNodes();
         }
         this.faceActName = ["kongxianshi","lianxushouji","xiaomiewanjia","biworuoxiao","biwoqiangda"];
-        this._armatureDisplay = this.node.getChildByName("faceact").getComponent(dragonBones.ArmatureDisplay);
-        this._armature = this._armatureDisplay.armature();
-        this._armatureDisplay.addEventListener(dragonBones.EventObject.FADE_IN_COMPLETE, this.animationEventHandler, this);
+        // this._armatureDisplay = this.node.getChildByName("faceact").getComponent(dragonBones.ArmatureDisplay);
+        // this._armature = this._armatureDisplay.armature();
+        // this._armatureDisplay.addEventListener(dragonBones.EventObject.FADE_IN_COMPLETE, this.animationEventHandler, this);
 
-        this._armatureDisplay.dragonAsset = this.dragonBonesAssetList[this.factActIndex];
-        this._armatureDisplay.dragonAtlasAsset =  this.dragonBonesAtlasList[this.factActIndex];
-        // this.playerFaceAct(this.faceActName[1],-1);
+        // this._armatureDisplay.dragonAsset = this.dragonBonesAssetList[this.factActIndex];
+        // this._armatureDisplay.dragonAtlasAsset =  this.dragonBonesAtlasList[this.factActIndex];
 
         this.resetFaceScale(this.radius);
     },
     playerFaceAct(actName,playTimes){
         // cc.log("ai actName",actName);
-        this._armatureDisplay.armatureName = actName;
-        this._armature = this._armatureDisplay.armature();
-        this._armature.animation.fadeIn(actName, -1, playTimes, 0);
+        var faceIndex = 1;
+        if("kongxianshi" == actName){
+            faceIndex = 4;
+        }
+        if("lianxushouji" == actName){
+            faceIndex = 5;
+        }
+        if("xiaomiewanjia" == actName){
+            faceIndex = 3;
+        }
+        if("biworuoxiao" == actName){
+            faceIndex = 1;
+        }
+        if("biwoqiangda" == actName){
+            faceIndex = 2;
+        }
+        cc.loader.loadRes("staticFace/b" + (this.factActIndex+1) + "/" + faceIndex + ".png", 'png', (err, texture) => {
+            cc.log(err);
+            var spriteFromNet = this.node.getChildByName("faceact").getComponent(cc.Sprite);
+            spriteFromNet.spriteFrame = new cc.SpriteFrame(texture);
+        })
     },
     resetFaceScale(radius){
         var facingScale = 1;
