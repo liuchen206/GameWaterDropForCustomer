@@ -363,6 +363,7 @@ cc.Class({
             cc.log(err);
             var spriteFromNet = cc.find("Canvas/bg/faceDisplay/faceDB").getComponent(cc.Sprite);
             spriteFromNet.spriteFrame = new cc.SpriteFrame(texture);
+            // spriteFromNet.scale = 1.6;
         })
     },
 

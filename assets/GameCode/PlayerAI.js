@@ -122,11 +122,12 @@ cc.Class({
             cc.log(err);
             var spriteFromNet = this.node.getChildByName("faceact").getComponent(cc.Sprite);
             spriteFromNet.spriteFrame = new cc.SpriteFrame(texture);
+            // spriteFromNet.scale = 1.6;
         })
     },
     resetFaceScale(radius){
         var facingScale = 1;
-        facingScale = radius/130;
+        facingScale = radius/100;
         this.node.getChildByName("faceact").scale = facingScale;
     },
     animationEventHandler(event) {

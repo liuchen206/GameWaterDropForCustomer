@@ -84,6 +84,7 @@ cc.Class({
             cc.log(err);
             var spriteFromNet = this.node.getChildByName("faceDisplay").getChildByName("faceDB").getComponent(cc.Sprite);
             spriteFromNet.spriteFrame = new cc.SpriteFrame(texture);
+            // spriteFromNet.scale = 1.6;
         })
 
         // 记录下这个要赠送的表情id
