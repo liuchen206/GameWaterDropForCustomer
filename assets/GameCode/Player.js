@@ -116,7 +116,7 @@ cc.Class({
     },
     resetFaceScale(radius){
         var facingScale = 1;
-        facingScale = radius/100;
+        facingScale = radius/130;
         this.node.getChildByName("faceact").scale = facingScale;
     },
     animationEventHandler(event) {
