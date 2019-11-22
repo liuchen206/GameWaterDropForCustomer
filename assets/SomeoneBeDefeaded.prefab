@@ -19,26 +19,20 @@
     "_children": [
       {
         "__id__": 2
-      },
-      {
-        "__id__": 5
-      },
-      {
-        "__id__": 8
       }
     ],
     "_active": true,
     "_level": 4,
     "_components": [
       {
-        "__id__": 11
+        "__id__": 13
       },
       {
-        "__id__": 12
+        "__id__": 14
       }
     ],
     "_prefab": {
-      "__id__": 13
+      "__id__": 15
     },
     "_opacity": 255,
     "_color": {
@@ -90,16 +84,23 @@
     "_parent": {
       "__id__": 1
     },
-    "_children": [],
+    "_children": [
+      {
+        "__id__": 3
+      },
+      {
+        "__id__": 7
+      }
+    ],
     "_active": true,
     "_level": 5,
     "_components": [
       {
-        "__id__": 3
+        "__id__": 11
       }
     ],
     "_prefab": {
-      "__id__": 4
+      "__id__": 12
     },
     "_opacity": 255,
     "_color": {
@@ -111,8 +112,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 132,
-      "height": 65
+      "width": 120,
+      "height": 50.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -147,61 +148,25 @@
     "_id": ""
   },
   {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 2
-    },
-    "_enabled": true,
-    "_materials": [],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "c3381378-b587-472f-8d71-7489040a85ed"
-    },
-    "_type": 0,
-    "_sizeMode": 1,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "a03498f5-221c-4194-9394-d9613683176c"
-    },
-    "fileId": "bb4e5CGItOK7In62A/hIpA",
-    "sync": false
-  },
-  {
     "__type__": "cc.Node",
-    "_name": "hunterName",
+    "_name": "loserName",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 1
+      "__id__": 2
     },
     "_children": [],
     "_active": true,
-    "_level": 5,
+    "_level": 6,
     "_components": [
       {
-        "__id__": 6
+        "__id__": 4
+      },
+      {
+        "__id__": 5
       }
     ],
     "_prefab": {
-      "__id__": 7
+      "__id__": 6
     },
     "_opacity": 255,
     "_color": {
@@ -213,18 +178,18 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120.03,
+      "width": 30,
       "height": 37.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
+      "x": 0,
       "y": 0.5
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -96.222,
-      "y": 21.288,
+      "x": 75,
+      "y": 0,
       "z": 0
     },
     "_scale": {
@@ -237,8 +202,8 @@
       "__type__": "cc.Quat",
       "x": 0,
       "y": 0,
-      "z": 0.11320321376790672,
-      "w": 0.9935718556765875
+      "z": 0,
+      "w": 1
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -253,13 +218,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 5
+      "__id__": 3
     },
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "玩家XXX",
-    "_N$string": "玩家XXX",
+    "_string": "我",
+    "_N$string": "我",
     "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
@@ -275,6 +240,33 @@
     "_id": ""
   },
   {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 3
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": null,
+    "_alignFlags": 8,
+    "_left": 135,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0,
+    "_id": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -282,20 +274,23 @@
     "asset": {
       "__uuid__": "a03498f5-221c-4194-9394-d9613683176c"
     },
-    "fileId": "d9NdDp5G9H3qiklOya+d+F",
+    "fileId": "dd8nRx3tRLpbxgloQnY7JH",
     "sync": false
   },
   {
     "__type__": "cc.Node",
-    "_name": "loserName",
+    "_name": "hunterName",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 1
+      "__id__": 2
     },
     "_children": [],
     "_active": true,
-    "_level": 5,
+    "_level": 6,
     "_components": [
+      {
+        "__id__": 8
+      },
       {
         "__id__": 9
       }
@@ -313,18 +308,18 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120.03,
+      "width": 30,
       "height": 37.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
+      "x": 1,
       "y": 0.5
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 98.982,
-      "y": -23.103,
+      "x": -75,
+      "y": -2.704,
       "z": 0
     },
     "_scale": {
@@ -337,8 +332,8 @@
       "__type__": "cc.Quat",
       "x": 0,
       "y": 0,
-      "z": 0.11320321376790672,
-      "w": 0.9935718556765875
+      "z": 0,
+      "w": 1
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -353,13 +348,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 8
+      "__id__": 7
     },
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "玩家XXX",
-    "_N$string": "玩家XXX",
+    "_string": "我",
+    "_N$string": "我",
     "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
@@ -375,6 +370,33 @@
     "_id": ""
   },
   {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 7
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": null,
+    "_alignFlags": 32,
+    "_left": 0,
+    "_right": 135,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0,
+    "_id": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -382,7 +404,44 @@
     "asset": {
       "__uuid__": "a03498f5-221c-4194-9394-d9613683176c"
     },
-    "fileId": "68D/Ct3JdCaJ3j8+S5Sr9A",
+    "fileId": "02gYlk3QpBHJPTfxvPpnBT",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "_materials": [],
+    "_useOriginalSize": true,
+    "_string": "吃掉了",
+    "_N$string": "吃掉了",
+    "_fontSize": 40,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_batchAsBitmap": false,
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 0,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 0,
+    "_N$cacheMode": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "a03498f5-221c-4194-9394-d9613683176c"
+    },
+    "fileId": "bb4e5CGItOK7In62A/hIpA",
     "sync": false
   },
   {
@@ -394,10 +453,10 @@
     },
     "_enabled": true,
     "winnerLabel": {
-      "__id__": 6
+      "__id__": 8
     },
     "loserLabel": {
-      "__id__": 9
+      "__id__": 4
     },
     "_id": ""
   },
@@ -413,7 +472,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "37b9c7de-0f2d-4043-92ae-9ba017f56a02"
+      "__uuid__": "0ee34302-21a4-4e1b-92a4-bb8eaa96fc0c"
     },
     "_type": 1,
     "_sizeMode": 0,
