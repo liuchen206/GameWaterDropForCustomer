@@ -215,7 +215,7 @@ window.graphicsStyle = [
         debug: false
     },
     {
-        fillStyle: cc.color(109,176,215,255),
+        fillStyle: cc.color(211,238,252,255),
         strokeStyle: cc.color(226,157,255,255),
         lineWidth: 1,
         debug: false
