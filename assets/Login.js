@@ -37,13 +37,13 @@ cc.Class({
                 success: function (res) { console.log(res); },
                 fail: function (res) { console.log(res); }
             });
-            wx.onShareAppMessage(function () {
-                // 用户点击了“转发”按钮
-                return {
-                    title: '浴室大作战',
-                    imageUrl: 'http://youjiang.gaoji.ren:15050/wechat/wxShare/logo.png',
-                }
-            });
+            // wx.onShareAppMessage(function () {
+            //     // 用户点击了“转发”按钮
+            //     return {
+            //         title: '浴室大作战',
+            //         imageUrl: 'http://youjiang.gaoji.ren:15050/wechat/wxShare/logo.png',
+            //     }
+            // });
         }
         // var avatarUrl = "http://youjiang.gaoji.ren:15050/wechat/avatars/0001.jpg";
         // var self = this;

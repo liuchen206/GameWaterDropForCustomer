@@ -48,7 +48,7 @@ cc.Class({
             var indexCheck2 = 1;
             var randomIndex2 = 0;
             while (indexCheck2 >= 0) {
-                randomIndex2 = Math.floor(MapNum(Math.random(), 0, 1, 0, 200));
+                randomIndex2 = Math.ceil(MapNum(Math.random(), 0, 1, 0, 20));
                 indexCheck2 = this.AvatarListIndex.indexOf(randomIndex2);
             }
             this.AvatarListIndex.push(randomIndex2);
