@@ -55,7 +55,7 @@ cc.Class({
         // })
         this.getMyWXInfo();
 
-        // this.initADReward();
+        // this._initADReward_();
         if (typeof qg != "undefined") {
             var self = this;
             qg.initAdService({
@@ -69,8 +69,8 @@ cc.Class({
                 },
                 complete: function (res) {
                     console.log("complete");
-                    self.initADBanner();
-                    self.showADBanner();
+                    self._initADBanner_();
+                    self._showADBanner_();
                     self.initADInsert();
                     self.showADInsert();
                 }
@@ -129,7 +129,7 @@ cc.Class({
         this.reFreshGold();
         this.updateFaceSelect();
         this.updateLoginShowFace();
-        cc.find("AudioManager").getComponent("AudioManager").playLobbyBGM();
+        cc.find("AudioManager").getComponent("AudioManager")._playLobbyBGM_();
     },
     showTips(info) {
         var tipsNode = cc.instantiate(this.tips)
@@ -185,7 +185,7 @@ cc.Class({
         }
 
     },
-    initADReward() {
+    _initADReward_() {
         if (typeof wx === "undefined") {
             // this.showTips("weixin only");
             return;
@@ -215,7 +215,7 @@ cc.Class({
             }
         })
     },
-    initADBanner() {
+    _initADBanner_() {
         // oppo start
         if (typeof qg != "undefined") {
             // qg.login({
@@ -307,7 +307,7 @@ cc.Class({
             }
         }
     },
-    // showADReward(){
+    // _showADReward_(){
     //     if(typeof wx === "undefined"){
     //         this.showTips("weixin only");
     //     }else{
@@ -322,7 +322,7 @@ cc.Class({
     //         })
     //     }
     // },
-    showADBanner() {
+    _showADBanner_() {
         // oppo start
         if (typeof qg != "undefined") {
             // 在适合的场景显示 Banner 广告
@@ -341,7 +341,7 @@ cc.Class({
             this.bannerAd.show();
         }
     },
-    HideADBanner() {
+    _HideADBanner_() {
         if (typeof wx === "undefined") {
             // this.showTips("weixin only");
         } else {
@@ -352,7 +352,7 @@ cc.Class({
         }
     },
     onDestroy() {
-        this.HideADBanner();
+        this._HideADBanner_();
     },
     updateLoginShowFace() {
         var userData = getUserFaceData();

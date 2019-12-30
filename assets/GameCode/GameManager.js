@@ -41,8 +41,8 @@ cc.Class({
         this.IsGemeEnd = true;
         this.playerPos = cc.Vec2.ZERO;
         EventCenter.AddListener(EventCenter.EventType.Water_Drop_Added, this.AddWaterDropCB, this);
-        EventCenter.AddListener(EventCenter.EventType.Someone_Be_Defeaded, this.SomeonDefeadedCB, this);
-        EventCenter.AddListener(EventCenter.EventType.BackToHall, this.BackToHall, this);
+        EventCenter.AddListener(EventCenter.EventType.Someone_Be_Defeaded, this._SomeonDefeadedCB_, this);
+        EventCenter.AddListener(EventCenter.EventType._BackToHall_, this._BackToHall_, this);
 
         this.commonWaterDropPool = new cc.NodePool();
         let initCount = 5;
@@ -62,15 +62,15 @@ cc.Class({
         // //读本地数据
         // var gold = cc.sys.localStorage.getItem("Gold");
         // cc.log("gold",gold);
-        // cc.log("isInCanmaerView test ",this.isInCanmaerView(this.testNode.getComponent("PlayerAI")));
-        // cc.log("getPosInEdge test ",this.getPosInEdge(this.testNode.getComponent("PlayerAI"),0).toString());
+        // cc.log("_getPosInEdge_ test ",this._getPosInEdge_(this.testNode.getComponent("PlayerAI")));
+        // cc.log("_getPosInEdge_ test ",this._getPosInEdge_(this.testNode.getComponent("PlayerAI"),0).toString());
 
-        this.initADReward();
+        this._initADReward_();
 
     },
     AddWaterDropCB(score) {
         // cc.log("data : ",score);
-        this.setScore(score);
+        this._setScore_(score);
     },
     start() {
         this.startGame();
@@ -84,27 +84,27 @@ cc.Class({
             return;
         }
         this.generateCommonWaterDrop();
-        this.updatePlayingRankList();
-        this.updatePlayerPosInfo();
+        this._updatePlayingRankList_();
+        this._updatePlayerPosInfo_();
         this.checkGameOverCondition();
     },
     onDestroy() {
         EventCenter.RemoveListener(EventCenter.EventType.Water_Drop_Added, this.AddWaterDropCB, this);
-        EventCenter.RemoveListener(EventCenter.EventType.Someone_Be_Defeaded, this.SomeonDefeadedCB, this);
-        EventCenter.RemoveListener(EventCenter.EventType.BackToHall, this.BackToHall, this);
+        EventCenter.RemoveListener(EventCenter.EventType.Someone_Be_Defeaded, this._SomeonDefeadedCB_, this);
+        EventCenter.RemoveListener(EventCenter.EventType._BackToHall_, this._BackToHall_, this);
     },
     startGame() {
         // 启动匹配界面
         var GamePreStartJS = cc.instantiate(this.GamePreStartPrefab).getComponent("GamePreStartUI").init(this);
         cc.find("Canvas/UIView/PopWindow").addChild(GamePreStartJS.node);
     },
-    runGame(nameList) {
+    _runGame_(nameList) {
         this.cleanAllPlayer();
         this.cleanAllPlayerAI();
         this.nameList = nameList;
         this.timeCountDown = this.timeInOneGame;
-        this.setTime(this.timeInOneGame);
-        this.setScore(0);
+        this._setTime_(this.timeInOneGame);
+        this._setScore_(0);
         this.schedule(this._callbackGameTime, 1);
         this.scheduleOnce(function () {
             this.generatePlayerAI(this.nameList);
@@ -114,7 +114,7 @@ cc.Class({
         this.stillPlayingList = [];
         this.losePlayerList = [];
     },
-    endGameIWin(rank, playInfoList) {
+    _endGameIWin_(rank, playInfoList) {
         this.IsGemeEnd = true;
         this.unschedule(this._callbackGameTime);
         this.Joystick = cc.find("Canvas/UIView/Joystick");
@@ -130,7 +130,7 @@ cc.Class({
         cc.find("Canvas/UIView/PopWindow").addChild(dialog.node);
         this.SubmitScore(this.playerScore);
     },
-    endGame(endtitle, endContent, rankNum) {
+    _endGame_(endtitle, endContent, rankNum) {
         this.IsGemeEnd = true;
         this.unschedule(this._callbackGameTime);
         this.Joystick = cc.find("Canvas/UIView/Joystick");
@@ -156,14 +156,14 @@ cc.Class({
     },
     dialogBtn1: function (event, customEventData) {
         cc.log("dialogBtn1 called");
-        var result = this.showADReward();
+        var result = this._showADReward_();
         if (result == false) {
             customEventData.close();
             this._addGoldToLocal(this.playerScore * 30);
             cc.director.loadScene("Login");
         }
         // if(PlayerTimes%2 == 0){
-        //     var result = this.showADReward();
+        //     var result = this._showADReward_();
         //     if(result == false){
         //         customEventData.close();
         //         this._addGoldToLocal(this.playerScore*30);
@@ -207,7 +207,7 @@ cc.Class({
         }
     },
     // 玩家击败了玩家时间，UI展示
-    SomeonDefeadedCB(data) {
+    _SomeonDefeadedCB_(data) {
         cc.log(data.winerName + " defeaded " + data.loseName);
         cc.find("Canvas/UIView/SomeoneLosePopWindow").removeAllChildren();
         var someoneBeDefeadedUI = cc.instantiate(this.someonDefeadedPrefab).getComponent("SomeoneBeDefeaded").init(data.winerName, data.loseName);
@@ -236,13 +236,13 @@ cc.Class({
         });
     },
     // 设置比赛中的得分数
-    setScore(score) {
+    _setScore_(score) {
         this.playerScore = score;
         var scoreString = score*10;
         this.scoreLabel.string = scoreString + "";
     },
     // 设置比赛中的剩余时间
-    setTime(timeInSec) {
+    _setTime_(timeInSec) {
         var min = Math.floor(timeInSec / 60);
         var sec = timeInSec % 60;
         var minString = min < 10 ? ('0' + min) : min;
@@ -250,7 +250,7 @@ cc.Class({
         this.timeCounterLabel.string = minString + ":" + secString;
     },
     // 设置比赛中的得分排名情况
-    updatePlayingRankList() {
+    _updatePlayingRankList_() {
         this.stillPlayingList = [];
         if (this.playerAIContainer != null) {
             var allNodeInCanvas = this.playerAIContainer.children;
@@ -329,20 +329,20 @@ cc.Class({
         }
     },
     // 更新其他玩家的位置提示信息
-    updatePlayerPosInfo() {
+    _updatePlayerPosInfo_() {
         var playerPosInfoList = this.playerPosInfoContainer.children;
         for (var i = 0; i < playerPosInfoList.length; i++) {
             var playerPosInfoNode = playerPosInfoList[i];
             if (i < this.stillPlayingList.length) {
                 var playerInfo = this.stillPlayingList[i];
-                if (this.isInCanmaerView(playerInfo.playerNodeJS) == false && playerInfo.isMainPlayer != true) {
+                if (this._getPosInEdge_(playerInfo.playerNodeJS) == false && playerInfo.isMainPlayer != true) {
                     var rankBg = this.rankBgSpriteList[playerInfo.colorStyleIndex % 10];
                     var rankBgSprite = playerPosInfoNode.getComponent(cc.Sprite);
                     rankBgSprite.spriteFrame = rankBg;
                     var rankLabel = playerPosInfoNode.getChildByName("rank").getComponent(cc.Label);
                     rankLabel.string = (i + 1) + "";
 
-                    playerPosInfoNode.position = this.getPosInEdge(playerInfo.playerNodeJS, 15);
+                    playerPosInfoNode.position = this._getPosInEdge_(playerInfo.playerNodeJS, 15);
                     playerPosInfoNode.opacity = 255;
                 } else {
                     playerPosInfoNode.opacity = 0;
@@ -353,7 +353,7 @@ cc.Class({
         }
     },
     // 返回在屏幕邊緣上的坐标
-    getPosInEdge(playerNodeJS, offset) {
+    _getPosInEdge_(playerNodeJS, offset) {
         if (playerNodeJS == "undefined" || playerNodeJS == null) {
             return;
         }
@@ -384,7 +384,7 @@ cc.Class({
         return new cc.Vec2(xEdgePos, yEdgePos);
     },
     // 是否在屏幕内
-    isInCanmaerView(playerNodeJS) {
+    _getPosInEdge_(playerNodeJS) {
         if (playerNodeJS == "undefined" || playerNodeJS == null) {
             return;
         }
@@ -414,7 +414,7 @@ cc.Class({
         if (this.timeCountDown < 0) {
             this.timeCountDown = 0;
         }
-        this.setTime(this.timeCountDown);
+        this._setTime_(this.timeCountDown);
 
         // 开局10s之后，每隔5秒
         var timeElapse = this.timeInOneGame - this.timeCountDown;
@@ -445,7 +445,7 @@ cc.Class({
     playWinAudio() {
         if (cc.find("AudioManager") != null) {
             cc.find("AudioManager").getComponent("AudioManager").stopGameBGM();
-            cc.find("AudioManager").getComponent("AudioManager").playWin();
+            cc.find("AudioManager").getComponent("AudioManager")._playWin_();
         }
     },
     playLoseAudio() {
@@ -456,7 +456,7 @@ cc.Class({
     },
     playGoldAudio() {
         if (cc.find("AudioManager") != null) {
-            cc.find("AudioManager").getComponent("AudioManager").playgold();
+            cc.find("AudioManager").getComponent("AudioManager")._playgold_();
         }
     },
     checkGameOverCondition() {
@@ -477,8 +477,8 @@ cc.Class({
             //     }
             //     return b.score - a.score;
             // });
-            // this.endGameIWin(1, resultList);
-            this.endGame("", "", 1);
+            // this._endGameIWin_(1, resultList);
+            this._endGame_("", "", 1);
 
             this.playWinAudio();
         }
@@ -504,8 +504,8 @@ cc.Class({
                 }
                 return b.score - a.score;
             });
-            // this.endGameIWin(rankNum, resultList);
-            this.endGame("", "", rankNum);
+            // this._endGameIWin_(rankNum, resultList);
+            this._endGame_("", "", rankNum);
 
             this.playWinAudio();
         }
@@ -513,7 +513,7 @@ cc.Class({
         var playernodeLength = this.getPlayerLength();
         if (playernodeLength <= 0) {
             cc.log("自己被其他player吞噬");
-            this.endGame("", this.nameWhoEatMe, this.stillPlayingList.length + 1);
+            this._endGame_("", this.nameWhoEatMe, this.stillPlayingList.length + 1);
             // var resultList = this.losePlayerList.concat(this.stillPlayingList);
             // resultList.sort((a, b) => {
             //     if (a.score == 0 && b.score == 0) {
@@ -527,7 +527,7 @@ cc.Class({
             //     }
             //     return b.score - a.score;
             // });
-            // this.endGameIWin(1,resultList);
+            // this._endGameIWin_(1,resultList);
 
             this.playLoseAudio();
         }
@@ -668,7 +668,7 @@ cc.Class({
         var len = allNodeInCanvas.length;
         return len;
     },
-    initADBanner() {
+    _initADBanner_() {
         // oppo start
         if (typeof qg != "undefined") {
             // qg.login({
@@ -733,7 +733,7 @@ cc.Class({
         //     this.bannerAd = BannerADSinglen;
         // }
     },
-    initADReward() {
+    _initADReward_() {
         // oppo start
         if (typeof qg != "undefined") {
             // qg.login({
@@ -799,26 +799,26 @@ cc.Class({
         //         // 用户点击了【关闭广告】按钮
         //         // 小于 2.1.0 的基础库版本，res 是一个 undefined
         //         if (res && res.isEnded || res === undefined) {
-        //             // 正常播放结束，可以下发游戏奖励 BackToHall
+        //             // 正常播放结束，可以下发游戏奖励 _BackToHall_
         //             console.log("正常播放结束，可以下发游戏奖励  "+this.playerScore);
-        //             EventCenter.dispatchEvent(EventCenter.EventType.BackToHall,{'data':30});
+        //             EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_,{'data':30});
         //         }
         //         else {
         //             // 播放中途退出，不下发游戏奖励
         //             console.log('播放中途退出，不下发游戏奖励  '+this.playerScore);
-        //             EventCenter.dispatchEvent(EventCenter.EventType.BackToHall,{'data':10});
+        //             EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_,{'data':10});
         //         }
         //     })
         // }else{
         //     this.videoAd = RewardADSinglen;
         // }
     },
-    BackToHall(param) {
+    _BackToHall_(param) {
         console.log('param[] ' + param['data']);
         this._addGoldToLocal(this.playerScore * param['data']);
         cc.director.loadScene("Login");
     },
-    showADReward() {
+    _showADReward_() {
         // oppo start
         if (typeof qg != "undefined") {
             // this.videoAd.show();
@@ -827,24 +827,24 @@ cc.Class({
             this.videoAd.onError(err => {
                 console.log("this.videoAd.onError", err)
                 cc.log(err);
-                self.BackToHall({ 'data': 10 });
-                // EventCenter.dispatchEvent(EventCenter.EventType.BackToHall,{'data':10});
+                self._BackToHall_({ 'data': 10 });
+                // EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_,{'data':10});
             })
             this.videoAd.offClose();
             this.videoAd.onClose(res => {
                 // 用户点击了【关闭广告】按钮
                 // 小于 2.1.0 的基础库版本，res 是一个 undefined
                 if (res && res.isEnded || res === undefined) {
-                    // 正常播放结束，可以下发游戏奖励 BackToHall
+                    // 正常播放结束，可以下发游戏奖励 _BackToHall_
                     console.log("正常播放结束，发送观看成功消息 in game");
-                    self.BackToHall({ 'data': 30 });
-                    // EventCenter.dispatchEvent(EventCenter.EventType.BackToHall, { 'data': 30 });
+                    self._BackToHall_({ 'data': 30 });
+                    // EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_, { 'data': 30 });
                 }
                 else {
                     // 播放中途退出，不下发游戏奖励
                     console.log('播放中途退出，发送观看失败消息');
-                    self.BackToHall({ 'data': 10 });
-                    // EventCenter.dispatchEvent(EventCenter.EventType.BackToHall, { 'data': 10 });
+                    self._BackToHall_({ 'data': 10 });
+                    // EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_, { 'data': 10 });
                 }
             })
             this.videoAd.onLoad(function () {
@@ -869,7 +869,7 @@ cc.Class({
                     .then(() => this.videoAd.show())
                     .catch(err => {
                         // cc.log("errMsg" + err.errMsg);
-                        EventCenter.dispatchEvent(EventCenter.EventType.BackToHall, { 'data': 10 });
+                        EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_, { 'data': 10 });
                     })
             })
         }

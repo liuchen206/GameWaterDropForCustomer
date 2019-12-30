@@ -5111,7 +5111,7 @@
     },
     "component": "",
     "_componentId": "51c55a2lNhPD7IjGzP0YQk+",
-    "handler": "showADBanner",
+    "handler": "_showADBanner_",
     "customEventData": ""
   },
   {
@@ -5849,7 +5849,7 @@
     },
     "component": "",
     "_componentId": "51c55a2lNhPD7IjGzP0YQk+",
-    "handler": "showADReward",
+    "handler": "_showADReward_",
     "customEventData": ""
   },
   {

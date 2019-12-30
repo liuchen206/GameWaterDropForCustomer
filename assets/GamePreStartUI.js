@@ -22,10 +22,10 @@ cc.Class({
 
     onLoad() {
         cc.find("Canvas/UIView/RankWhenPlaying").active = false;
-        this.showADBanner();
+        this._showADBanner_();
     },
     onDestroy() {
-        this.HideADBanner();
+        this._HideADBanner_();
     },
     start() {
 
@@ -96,7 +96,7 @@ cc.Class({
         var self = this;
         // cc.log("_showOneName",self.nameIndex,self.NameList.length)
         if (self.nameIndex >= self.NameList.length) {
-            self.gameManagerJS.runGame(self.NameList);
+            self.gameManagerJS._runGame_(self.NameList);
             cc.find("Canvas/UIView/RankWhenPlaying").active = true;
             self.node.destroy();
             return;
@@ -133,7 +133,7 @@ cc.Class({
             })
         }
     },
-    showADBanner() {
+    _showADBanner_() {
         // oppo start
         if (typeof qg != "undefined") {
             // 在适合的场景显示 Banner 广告
@@ -152,7 +152,7 @@ cc.Class({
             }
         }
     },
-    HideADBanner() {
+    _HideADBanner_() {
         if (typeof wx === "undefined") {
         } else {
             // 在适合的场景显示 Banner 广告

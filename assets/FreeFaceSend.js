@@ -11,7 +11,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        this.initADReward();
+        this._initADReward_();
         EventCenter.AddListener(EventCenter.EventType.FreeFace, this.getFreeFace, this);
     },
     onDestroy() {
@@ -93,7 +93,7 @@ cc.Class({
     },
     // update (dt) {},
 
-    initADReward() {
+    _initADReward_() {
         // oppo start
         if (typeof qg != "undefined") {
             // qg.login({
@@ -160,21 +160,21 @@ cc.Class({
         //         // 用户点击了【关闭广告】按钮
         //         // 小于 2.1.0 的基础库版本，res 是一个 undefined
         //         if (res && res.isEnded || res === undefined) {
-        //             // 正常播放结束，可以下发游戏奖励 BackToHall
+        //             // 正常播放结束，可以下发游戏奖励 _BackToHall_
         //             console.log("正常播放结束，可以下发游戏奖励  "+this.playerScore);
-        //             EventCenter.dispatchEvent(EventCenter.EventType.BackToHall,{'data':30});
+        //             EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_,{'data':30});
         //         }
         //         else {
         //             // 播放中途退出，不下发游戏奖励
         //             console.log('播放中途退出，不下发游戏奖励  '+this.playerScore);
-        //             EventCenter.dispatchEvent(EventCenter.EventType.BackToHall,{'data':10});
+        //             EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_,{'data':10});
         //         }
         //     })
         // }else{
         //     this.videoAd = RewardADSinglen;
         // }
     },
-    showADReward() {
+    _showADReward_() {
         // oppo start
         if (typeof qg != "undefined") {
             // this.videoAd.show();
@@ -190,7 +190,7 @@ cc.Class({
                 // 用户点击了【关闭广告】按钮
                 // 小于 2.1.0 的基础库版本，res 是一个 undefined
                 if (res && res.isEnded || res === undefined) {
-                    // 正常播放结束，可以下发游戏奖励 BackToHall
+                    // 正常播放结束，可以下发游戏奖励 _BackToHall_
                     console.log("正常播放结束，发送观看成功消息  in main");
                     EventCenter.dispatchEvent(EventCenter.EventType.FreeFace, { 'data': self.FaceIndexToSend });
                 }
@@ -222,7 +222,7 @@ cc.Class({
                     .then(() => this.videoAd.show())
                     .catch(err => {
                         // cc.log("errMsg" + err.errMsg);
-                        EventCenter.dispatchEvent(EventCenter.EventType.BackToHall, { 'data': 10 });
+                        EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_, { 'data': 10 });
                     })
             })
         }
@@ -233,7 +233,7 @@ cc.Class({
         this.node.destroy();
     },
     btnWathAD() {
-        var result = this.showADReward();
+        var result = this._showADReward_();
         if (result == false) {
             this.showTips("暂无广告播放");
             // EventCenter.dispatchEvent(EventCenter.EventType.FreeFace, { 'data': this.FaceIndexToSend });

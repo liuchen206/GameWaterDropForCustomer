@@ -17,7 +17,7 @@ cc.Class({
         // var YposUPNew = -291.192;
         // var YposDownNew = -420.729;
         // this.scheduleOnce(function () {
-        //     this.showADBanner();
+        //     this._showADBanner_();
         //     this.BtnUp.node.y = YposUPNew;
         //     this.BtnDowm.node.y = YposDownNew;
         //     this.BtnUp.interactable = true;
@@ -25,7 +25,7 @@ cc.Class({
         // }.bind(this), 2.0);
     },
     onDestroy() {
-        this.HideADBanner();
+        this._HideADBanner_();
     },
     start() {
 
@@ -111,7 +111,7 @@ cc.Class({
     close: function (event, customEventData) {
         this.node.destroy();
     },
-    showADBanner() {
+    _showADBanner_() {
         // oppo start
         if (typeof qg != "undefined") {
             // 在适合的场景显示 Banner 广告
@@ -130,7 +130,7 @@ cc.Class({
             }
         }
     },
-    HideADBanner() {
+    _HideADBanner_() {
         if (typeof wx === "undefined") {
         } else {
             // 在适合的场景显示 Banner 广告

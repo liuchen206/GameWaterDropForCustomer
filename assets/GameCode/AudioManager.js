@@ -73,7 +73,7 @@ cc.Class({
             return;
         }
         this.bgLobbyClip = res;
-        this.playLobbyBGM();
+        this._playLobbyBGM_();
     },
     bgGameComplete (err, res) {
         if (err || !res) {
@@ -128,7 +128,7 @@ cc.Class({
 
     // update (dt) {},
 
-    playLobbyBGM(){
+    _playLobbyBGM_(){
         if(this.bgLobbyClip == null){
             return;
         }
@@ -136,7 +136,7 @@ cc.Class({
 
         this.bgLobbyPlay = cc.audioEngine.play(this.bgLobbyClip, true,1);
     },
-    stopLobbyBGM(){
+    _stopLobbyBGM_(){
         if(this.bgLobbyPlay != null){
             cc.audioEngine.stop(this.bgLobbyPlay);
             this.bgLobbyPlay = null;
@@ -146,7 +146,7 @@ cc.Class({
         if(this.bgLobbyClip == null){
             return;
         }
-        this.stopLobbyBGM();
+        this._stopLobbyBGM_();
         this.bgGamePlay = cc.audioEngine.play(this.bgLobbyClip, true,1);
     },
     stopGameBGM(){
@@ -155,7 +155,7 @@ cc.Class({
             this.bgGamePlay = null;
         }
     },
-    playWin(){
+    _playWin_(){
         if(this.winClip == null){
             return;
         }
@@ -167,7 +167,7 @@ cc.Class({
         }
         this.losePlay = cc.audioEngine.play(this.loseClip, false,1);
     },
-    playgold(){
+    _playgold_(){
         if(this.goldClip == null){
             return;
         }
@@ -179,7 +179,7 @@ cc.Class({
         }
         this.btnClickPlay = cc.audioEngine.play(this.btnClickClip, false,1);
     },
-    playMergeClip(){
+    _playMergeClip_(){
         if(this.mergeClip == null){
             return;
         }

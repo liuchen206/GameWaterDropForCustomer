@@ -6,7 +6,7 @@ window.EventCenter = {
         TEST_EVENT: "TEST_EVENT",
         Water_Drop_Added: "Water_Drop_Added",
         Someone_Be_Defeaded:"Someone_Be_Defeaded",
-        BackToHall:"BackToHall",
+        _BackToHall_:"_BackToHall_",
         FreeFace:"FreeFace"
     },
 

@@ -633,7 +633,7 @@ cc.Class({
     },
     playMergeAudio(){
         if(cc.find("AudioManager") != null){
-            cc.find("AudioManager").getComponent("AudioManager").playMergeClip();
+            cc.find("AudioManager").getComponent("AudioManager")._playMergeClip_();
         }
     },
     Killed(){
