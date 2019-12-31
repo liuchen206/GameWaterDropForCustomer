@@ -37,54 +37,19 @@ cc.Class({
                 success: function (res) { console.log(res); },
                 fail: function (res) { console.log(res); }
             });
-            // wx.onShareAppMessage(function () {
-            //     // 用户点击了“转发”按钮
-            //     return {
-            //         title: '浴室大作战',
-            //         imageUrl: 'http://youjiang.gaoji.ren:15050/wechat/wxShare/logo.png',
-            //     }
-            // });
         }
-        // var avatarUrl = "http://youjiang.gaoji.ren:15050/wechat/avatars/0001.jpg";
-        // var self = this;
-        // cc.loader.load({url:avatarUrl,type:'jpg'},(err,texture)=>{
-        //     cc.log(err);
-        //     self.spriteFromNet.spriteFrame = new cc.SpriteFrame(texture);
-        //     self.spriteFromNet.node.width =40;
-        //     self.spriteFromNet.node.height =40;
-        // })
         this.getMyWXInfo();
 
-        // this._initADReward_();
-        if (typeof qg != "undefined") {
-            var self = this;
-            qg.initAdService({
-                appId: "30209487",
-                isDebug: false,
-                success: function (res) {
-                    console.log("success");
-                },
-                fail: function (res) {
-                    console.log("fail:" + res.code + res.msg);
-                },
-                complete: function (res) {
-                    console.log("complete");
-                    self._initADBanner_();
-                    self._showADBanner_();
-                    self.initADInsert();
-                    self.showADInsert();
-                }
-            })
-        }
-        // cc.log('aaaa')
-        // this.httpRequest("https://youjiang.gaoji.ren/yushi_data/yushiConfig.json", function (response) {
-        //     cc.log("response", response);
-        //     var levelObj = JSON.parse(response);
-        //     cc.log("levelObj", levelObj['checkFlag']);
-        // })
-        // cc.log('bbbb')
         this.checkAndShowSendFace();
+
+        this._initADBanner_(); // 初始化 微信 banner
+        this._showADBanner_(); // 展示 微信 banner
+        this.initADInsert(); // 初始化 微信 插屏
+        this.showADInsert(); // 展示微信插屏
     },
+    /**
+     * 遍历本地数据，如果没有获得全部表情，则展示看广告赠送表情界面
+     */
     checkAndShowSendFace() {
         // 找出一个为获得的表情
         var maxFaceIndex = 10;
@@ -109,17 +74,6 @@ cc.Class({
             cc.find("Canvas/PopWindow").addChild(sendNode);
         }
     },
-    httpRequest(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
-                callback(xhr.responseText);
-            }
-        };
-        xhr.open("GET", `${url}?v=${Math.random()}`, true);
-        xhr.send();
-    },
-
     start() {
         // cc.sys.localStorage.clear();
 
@@ -131,6 +85,10 @@ cc.Class({
         this.updateLoginShowFace();
         cc.find("AudioManager").getComponent("AudioManager")._playLobbyBGM_();
     },
+    /**
+     * 展示提示信息
+     * @param {提示信息字符串} info 
+     */
     showTips(info) {
         var tipsNode = cc.instantiate(this.tips)
         var infoLabel = tipsNode.getChildByName("info").getComponent(cc.Label);
@@ -139,32 +97,6 @@ cc.Class({
         cc.find("Canvas/PopWindow").addChild(tipsNode);
     },
     initADInsert() {
-        // oppo start
-        if (typeof qg != "undefined") {
-            // qg.login({
-            //     success: function(res){
-            //         var data = JSON.stringify(res.data);
-            //         console.log(data);
-            //     },
-            //     fail: function(res){
-            //       // errCode、errMsg
-            //         console.log(JSON.stringify(res));
-            //     }
-            // });
-
-            // 创建 Banner 广告实例，提前初始化
-            if (InsertADSinglen == null) {
-                InsertADSinglen = this.interstitialAd = qg.createInsertAd({
-                    posId: "135452"
-                })
-            } else {
-                this.interstitialAd = InsertADSinglen;
-            }
-
-        }
-        return;
-        // oppo end
-
         if (typeof wx === "undefined") {
             // this.showTips("weixin only");
             return;
@@ -185,116 +117,43 @@ cc.Class({
         }
 
     },
-    _initADReward_() {
+    _initADBanner_() {
         if (typeof wx === "undefined") {
             // this.showTips("weixin only");
             return;
         }
-        // 创建激励视频广告实例，提前初始化
-        this.videoAd = wx.createRewardedVideoAd({
-            adUnitId: 'adunit-516da520176dc054'
-        })
-        this.videoAd.onError(err => {
-            console.log(err)
-            this.showTips(err);
-        })
+        // 创建 Banner 广告实例，提前初始化
+        let systemInfo = wx.getSystemInfoSync();
+        let _width = systemInfo.windowWidth / 2;
+        let _height = systemInfo.windowHeight;
 
-        this.videoAd.onClose(res => {
-            // 用户点击了【关闭广告】按钮
-            // 小于 2.1.0 的基础库版本，res 是一个 undefined
-            if (res && res.isEnded || res === undefined) {
-                // 正常播放结束，可以下发游戏奖励
-                // this.showTips('正常播放结束，可以下发游戏奖励');
-                console.log("正常播放结束，可以下发游戏奖励");
-            }
-            else {
-                // 播放中途退出，不下发游戏奖励
-                // this.showTips('播放中途退出，不下发游戏奖励');
-                console.log('播放中途退出，不下发游戏奖励');
-
-            }
-        })
-    },
-    _initADBanner_() {
-        // oppo start
-        if (typeof qg != "undefined") {
-            // qg.login({
-            //     success: function(res){
-            //         var data = JSON.stringify(res.data);
-            //         console.log(data);
-            //     },
-            //     fail: function(res){
-            //       // errCode、errMsg
-            //         console.log(JSON.stringify(res));
-            //     }
-            // });
-
-            // 创建 Banner 广告实例，提前初始化
-            if (BannerADSinglen == null) {
-                BannerADSinglen = this.bannerAd = qg.createBannerAd({
-                    posId: "134207"
-                })
-            } else {
-                this.bannerAd = BannerADSinglen;
-            }
-
+        if (BannerADSinglen == null) {
+            BannerADSinglen = this.bannerAd = wx.createBannerAd({
+                adUnitId: 'adunit-24700a92e658f5cc',
+                adIntervals: 30, // 自动刷新频率不能小于30秒
+                style: {
+                    left: 0,
+                    top: 0,
+                    // width: 350,                            
+                    // height: 300,
+                }
+            })
+            var self = this;
+            this.bannerAd.onResize(function () {
+                // self.bannerAd.style.left = _width - self.bannerAd.style.realWidth+0.1;
+                self.bannerAd.style.left = _width - self.bannerAd.style.realWidth / 2 + 0.1;
+                self.bannerAd.style.top = _height - self.bannerAd.style.realHeight + 0.1;
+                console.log(self.bannerAd);
+            })
+            this.bannerAd.onError(err => {
+                console.log(err);
+                // this.showTips("errMsg" + err.errMsg);
+            });
+        } else {
+            this.bannerAd = BannerADSinglen;
         }
-        return;
-        // oppo end
-
-        // if(typeof wx === "undefined"){
-        //     // this.showTips("weixin only");
-        //     return;
-        // }
-        // // 创建 Banner 广告实例，提前初始化
-        // let systemInfo = wx.getSystemInfoSync();
-        // let _width = systemInfo.windowWidth/2;
-        // let _height = systemInfo.windowHeight;
-
-        // if(BannerADSinglen == null){
-        //     BannerADSinglen = this.bannerAd = wx.createBannerAd({
-        //         adUnitId: 'adunit-24700a92e658f5cc',
-        //         adIntervals: 30, // 自动刷新频率不能小于30秒
-        //         style: {
-        //             left: 0,
-        //             top : 0,
-        //             // width: 350,
-        //             // height: 300,
-        //         }
-        //     })
-        //     var self = this;
-        //     this.bannerAd.onResize(function(){
-        //         // self.bannerAd.style.left = _width - self.bannerAd.style.realWidth+0.1;
-        //         self.bannerAd.style.left = _width - self.bannerAd.style.realWidth/2+0.1;
-        //         self.bannerAd.style.top = _height - self.bannerAd.style.realHeight+0.1;
-        //         console.log( self.bannerAd);
-        //     })
-        //     this.bannerAd.onError(err => {
-        //         console.log(err);
-        //         // this.showTips("errMsg" + err.errMsg);
-        //     });
-        // }else{
-        //     this.bannerAd = BannerADSinglen;
-        // }
     },
     showADInsert() {
-        // oppo start
-        if (typeof qg != "undefined") {
-            // 在适合的场景显示 Banner 广告
-            if (InsertADSinglen) {
-                console.log("显示 insert 广告");
-                var self = this;
-                this.interstitialAd.onLoad(function () {
-                    console.log("insert 加载成功");
-                    self.interstitialAd.show();
-                })
-                this.interstitialAd.load();
-                // InsertADSinglen.show();
-            }
-        }
-        return;
-        // oppo end
-
         if (typeof wx === "undefined") {
             // this.showTips("weixin only");
         } else {
@@ -307,33 +166,7 @@ cc.Class({
             }
         }
     },
-    // _showADReward_(){
-    //     if(typeof wx === "undefined"){
-    //         this.showTips("weixin only");
-    //     }else{
-    //         // 用户触发广告后，显示激励视频广告
-    //         this.videoAd.show().catch(() => {
-    //             // 失败重试
-    //             this.videoAd.load()
-    //             .then(() => this.videoAd.show())
-    //             .catch(err => {
-    //                 // this.showTips("errMsg" + err.errMsg);
-    //             })
-    //         })
-    //     }
-    // },
     _showADBanner_() {
-        // oppo start
-        if (typeof qg != "undefined") {
-            // 在适合的场景显示 Banner 广告
-            if (BannerADSinglen) {
-                console.log("显示 Banner 广告");
-                BannerADSinglen.show();
-            }
-        }
-        return;
-        // oppo end
-
         if (typeof wx === "undefined") {
             // this.showTips("weixin only");
         } else {
@@ -354,6 +187,9 @@ cc.Class({
     onDestroy() {
         this._HideADBanner_();
     },
+    /**
+     * 更新登陆界面 选择的当前表情
+     */
     updateLoginShowFace() {
         var userData = getUserFaceData();
         var faceIndex = userData.currentSelectIndex;
@@ -366,7 +202,9 @@ cc.Class({
             // spriteFromNet.scale = 1.6;
         })
     },
-
+    /**
+     * 更新表情选择界面
+     */
     updateFaceSelect() {
         var maxFaceIndex = 10;
         var maxBtn = 10;
@@ -399,6 +237,9 @@ cc.Class({
             }
         }
     },
+    /**
+     * 获得微信个人信息
+     */
     getMyWXInfo() {
         if (typeof wx === 'undefined') {
             return;
@@ -440,22 +281,6 @@ cc.Class({
     update(dt) {
 
     },
-    JumpToGame1() {
-        if (typeof wx === "undefined") {
-            return;
-        }
-        wx.navigateToMiniProgram({
-            appId: 'wx3b98d190491bd4ac',
-            path: '',
-            extraData: {
-                data: 'someData'
-            },
-            envVersion: 'release',
-            success(res) {
-                // 打开成功
-            }
-        })
-    },
     // 开始按钮点击
     startGame() {
         cc.find("AudioManager").getComponent("AudioManager").playbtnClick();
@@ -471,7 +296,6 @@ cc.Class({
         cc.find("AudioManager").getComponent("AudioManager").playbtnClick();
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             this.RankNode.active = true;
-            this.showFriendRank();
         } else if (cc.sys.platform === cc.sys.WIN32) {
             this.showTips("暂未开放");
             return;
@@ -481,43 +305,9 @@ cc.Class({
         }
 
     },
-    //  關閉排行榜
-    closeRank() {
-        cc.find("AudioManager").getComponent("AudioManager").playbtnClick();
-        this.RankNode.active = false;
-    },
-    // 展示排行榜
-    showFriendRank() {
-        cc.log("showFriendRank");
-        if (typeof wx === "undefined") {
-            return;
-        }
-        wx.getOpenDataContext().postMessage({
-            MsgType: "ShowFriendRank",
-        });
-    },
-    // 上传积分
-    SubmitScore(scoreToAdd) {
-        if (typeof wx === "undefined") {
-            return;
-        }
-        scoreToAdd = 1;
-        cc.log("SubmitScore", scoreToAdd);
-        wx.getOpenDataContext().postMessage({
-            MsgType: "SubmitScore",
-            score: parseInt(scoreToAdd),
-        });
-    },
-    // 分享
-    shareGame() {
-        if (typeof wx === "undefined") {
-            return;
-        }
-        wx.shareAppMessage({
-            title: '浴室大作战',
-        });
-    },
-    // 设置金币
+    /**
+     * 更新展示玩家的金币（水滴）
+     */
     reFreshGold() {
         var gold = cc.sys.localStorage.getItem("Gold");
         if (gold) {

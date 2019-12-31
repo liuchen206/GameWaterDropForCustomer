@@ -80,7 +80,7 @@ cc.Class({
             }
         }
         // 用没有获得的index 初始化界面
-        cc.loader.loadRes("staticFace/b" + (unGetFaceIndex+1) + "/" + 5 + ".png", 'png', (err, texture) => {
+        cc.loader.loadRes("staticFace/b" + (unGetFaceIndex + 1) + "/" + 5 + ".png", 'png', (err, texture) => {
             cc.log(err);
             var spriteFromNet = this.node.getChildByName("faceDisplay").getChildByName("faceDB").getComponent(cc.Sprite);
             spriteFromNet.spriteFrame = new cc.SpriteFrame(texture);
@@ -94,123 +94,39 @@ cc.Class({
     // update (dt) {},
 
     _initADReward_() {
-        // oppo start
-        if (typeof qg != "undefined") {
-            // qg.login({
-            //     success: function(res){
-            //         var data = JSON.stringify(res.data);
-            //         console.log(data);
-            //     },
-            //     fail: function(res){
-            //       // errCode、errMsg
-            //         console.log(JSON.stringify(res));
-            //     }
-            // });
-            // if (RewardADSinglen != null) {
-            //     console.log("RewardADSinglen destroy in main");
-            //     RewardADSinglen.destroy();
-            //     RewardADSinglen == null;
-            // }
-            qg.initAdService({
-                appId: "30209487",
-                isDebug: false,
-                success: function (res) {
-                    console.log("success");
-                },
-                fail: function (res) {
-                    console.log("fail:" + res.code + res.msg);
-                },
-                complete: function (res) {
-                    console.log("complete");
-                }
-            })
-
-            // 创建激励视频广告实例，提前初始化
-            if (RewardADSinglen == null) {
-                var self = this;
-                RewardADSinglen = this.videoAd = qg.createRewardedVideoAd({
-                    posId: "130416"
-                });
-                // this.videoAd.onLoad(function() {
-                //     console.log("激励视频加载成功");
-                //     // this.videoAd.show();
-                // })
-            } else {
-                this.videoAd = RewardADSinglen;
-            }
+        if (typeof wx === "undefined") {
+            // cc.log("weixin only");
+            return;
         }
-        return;
-        // oppo end
-
-        // if(typeof wx === "undefined"){
-        //     // cc.log("weixin only");
-        //     return;
-        // }
-        // // 创建激励视频广告实例，提前初始化
-        // if(RewardADSinglen == null){
-        //     RewardADSinglen = this.videoAd = wx.createRewardedVideoAd({
-        //         adUnitId: 'adunit-516da520176dc054'
-        //     })
-        //     this.videoAd.onError(err => {
-        //         console.log(err)
-        //         cc.log(err);
-        //     })
-
-        //     this.videoAd.onClose(res => {
-        //         // 用户点击了【关闭广告】按钮
-        //         // 小于 2.1.0 的基础库版本，res 是一个 undefined
-        //         if (res && res.isEnded || res === undefined) {
-        //             // 正常播放结束，可以下发游戏奖励 _BackToHall_
-        //             console.log("正常播放结束，可以下发游戏奖励  "+this.playerScore);
-        //             EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_,{'data':30});
-        //         }
-        //         else {
-        //             // 播放中途退出，不下发游戏奖励
-        //             console.log('播放中途退出，不下发游戏奖励  '+this.playerScore);
-        //             EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_,{'data':10});
-        //         }
-        //     })
-        // }else{
-        //     this.videoAd = RewardADSinglen;
-        // }
-    },
-    _showADReward_() {
-        // oppo start
-        if (typeof qg != "undefined") {
-            // this.videoAd.show();
-            var self = this;
-            this.videoAd.offError();
-            this.videoAd.onError(err => {
-                console.log("this.videoAd.onError", err)
-                cc.log(err);
-                EventCenter.dispatchEvent(EventCenter.EventType.FreeFace, { 'data': -1 });
+        // 创建激励视频广告实例，提前初始化
+        if (RewardADSinglen == null) {
+            RewardADSinglen = this.videoAd = wx.createRewardedVideoAd({
+                adUnitId: 'adunit-516da520176dc054'
             })
-            this.videoAd.offClose();
+            this.videoAd.onError(err => {
+                console.log(err)
+                cc.log(err);
+            })
+
             this.videoAd.onClose(res => {
                 // 用户点击了【关闭广告】按钮
                 // 小于 2.1.0 的基础库版本，res 是一个 undefined
                 if (res && res.isEnded || res === undefined) {
                     // 正常播放结束，可以下发游戏奖励 _BackToHall_
-                    console.log("正常播放结束，发送观看成功消息  in main");
-                    EventCenter.dispatchEvent(EventCenter.EventType.FreeFace, { 'data': self.FaceIndexToSend });
+                    console.log("正常播放结束，可以下发游戏奖励  " + this.playerScore);
+                    EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_, { 'data': 30 });
                 }
                 else {
                     // 播放中途退出，不下发游戏奖励
-                    console.log('播放中途退出，发送观看失败消息');
-                    EventCenter.dispatchEvent(EventCenter.EventType.FreeFace, { 'data': -1 });
+                    console.log('播放中途退出，不下发游戏奖励  ' + this.playerScore);
+                    EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_, { 'data': 10 });
                 }
             })
-            this.videoAd.onLoad(function () {
-                console.log("激励视频加载成功");
-                self.videoAd.show();
-            })
-            this.videoAd.load();
-            return true;
         } else {
-            return false;
+            this.videoAd = RewardADSinglen;
         }
-        // oppo end
-
+    },
+    _showADReward_() {
         if (typeof wx === "undefined") {
             // cc.log("weixin only");
             return false;

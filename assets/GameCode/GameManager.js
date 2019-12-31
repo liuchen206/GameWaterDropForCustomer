@@ -66,7 +66,6 @@ cc.Class({
         // cc.log("_getPosInEdge_ test ",this._getPosInEdge_(this.testNode.getComponent("PlayerAI"),0).toString());
 
         this._initADReward_();
-
     },
     AddWaterDropCB(score) {
         // cc.log("data : ",score);
@@ -93,11 +92,18 @@ cc.Class({
         EventCenter.RemoveListener(EventCenter.EventType.Someone_Be_Defeaded, this._SomeonDefeadedCB_, this);
         EventCenter.RemoveListener(EventCenter.EventType._BackToHall_, this._BackToHall_, this);
     },
+    /**
+     * 启动假匹配
+     */
     startGame() {
         // 启动匹配界面
         var GamePreStartJS = cc.instantiate(this.GamePreStartPrefab).getComponent("GamePreStartUI").init(this);
         cc.find("Canvas/UIView/PopWindow").addChild(GamePreStartJS.node);
     },
+    /**
+     * 启动游戏
+     * @param {*} nameList 
+     */
     _runGame_(nameList) {
         this.cleanAllPlayer();
         this.cleanAllPlayerAI();
@@ -114,6 +120,11 @@ cc.Class({
         this.stillPlayingList = [];
         this.losePlayerList = [];
     },
+    /**
+     * 胜利结束
+     * @param {*} rank 
+     * @param {*} playInfoList 
+     */
     _endGameIWin_(rank, playInfoList) {
         this.IsGemeEnd = true;
         this.unschedule(this._callbackGameTime);
@@ -128,8 +139,13 @@ cc.Class({
         dialog.SetBtnDownHandler("" + this.playerScore * 10, btn2Handler);
 
         cc.find("Canvas/UIView/PopWindow").addChild(dialog.node);
-        this.SubmitScore(this.playerScore);
     },
+    /**
+     * 失败结束
+     * @param {*} endtitle 
+     * @param {*} endContent 
+     * @param {*} rankNum 
+     */
     _endGame_(endtitle, endContent, rankNum) {
         this.IsGemeEnd = true;
         this.unschedule(this._callbackGameTime);
@@ -150,7 +166,6 @@ cc.Class({
         dialog.SetBtnDownHandler("" + this.playerScore * 10, btn2Handler);
 
         cc.find("Canvas/UIView/PopWindow").addChild(dialog.node);
-        this.SubmitScore(this.playerScore);
 
         PlayerTimes++;
     },
@@ -194,6 +209,10 @@ cc.Class({
         this._addGoldToLocal(this.playerScore * 10);
         cc.director.loadScene("Login");
     },
+    /**
+     * 更新新增的金币到本地
+     * @param {新增的金币（水滴）数} addedGold 
+     */
     _addGoldToLocal(addedGold) {
         var gold = cc.sys.localStorage.getItem("Gold");
         gold = parseInt(gold);
@@ -224,21 +243,10 @@ cc.Class({
             this.nameWhoEatMe = data.winnerName;
         }
     },
-    // 上传积分
-    SubmitScore(scoreToAdd) {
-        cc.log("SubmitScore", scoreToAdd);
-        if (typeof wx === "undefined") {
-            return;
-        }
-        wx.getOpenDataContext().postMessage({
-            MsgType: "SubmitScore",
-            score: parseInt(scoreToAdd),
-        });
-    },
     // 设置比赛中的得分数
     _setScore_(score) {
         this.playerScore = score;
-        var scoreString = score*10;
+        var scoreString = score * 10;
         this.scoreLabel.string = scoreString + "";
     },
     // 设置比赛中的剩余时间
@@ -409,6 +417,9 @@ cc.Class({
             return false;
         }
     },
+    /**
+     * 游戏时间倒计时
+     */
     _callbackGameTime() {
         this.timeCountDown -= 1;
         if (this.timeCountDown < 0) {
@@ -459,6 +470,9 @@ cc.Class({
             cc.find("AudioManager").getComponent("AudioManager")._playgold_();
         }
     },
+    /**
+     * j检查游戏结束状态
+     */
     checkGameOverCondition() {
         // 1,只剩自己
         var playerAILength = this.getAllPlayerAILength();
@@ -532,6 +546,9 @@ cc.Class({
             this.playLoseAudio();
         }
     },
+    /**
+     * 生成玩家
+     */
     generatePlayer() {
         var newPlayerNode = cc.instantiate(this.PlayerPrefab);
         var newPlayerNodeJS = newPlayerNode.getComponent('Player');
@@ -553,6 +570,10 @@ cc.Class({
         this.JoystickJS.playerJS = newPlayerNodeJS;
 
     },
+    /**
+     * 生成ai玩家
+     * @param {玩家名字列表} nameList 
+     */
     generatePlayerAI(nameList) {
         var aiNumber = 9;
         var currentNumInCanvasLength = this.getAllPlayerAILength();
@@ -594,6 +615,10 @@ cc.Class({
             newPlayerAINode.parent = this.playerAIContainer;
         }
     },
+    /**
+     * 添加一个普通水滴
+     * @param {对象父节点} parentNode 
+     */
     createCommonWaterDrop: function (parentNode) {
         let waterDrop = null;
         if (this.commonWaterDropPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
@@ -614,6 +639,9 @@ cc.Class({
         newWaterDropNodeJS.node.active = true;
         waterDrop.parent = parentNode;
     },
+    /**
+     * 生成 普通 类型的水滴
+     */
     generateCommonWaterDrop() {
         var quality = 45;
         var currentNumInCanvasLength = this.getAllCommonWaterDropLength();
@@ -621,6 +649,9 @@ cc.Class({
             this.createCommonWaterDrop(this.commonWaterDropContainer);
         }
     },
+    /**
+     * 清除所有玩家对象（其实只有一个）
+     */
     cleanAllPlayer() {
         if (this.playerContainer == null) {
             return;
@@ -631,6 +662,9 @@ cc.Class({
             allNodeInCanvas[i].destroy();
         }
     },
+    /**
+     * 清除所有 ai 玩家对象
+     */
     cleanAllPlayerAI() {
         if (this.playerAIContainer == null) {
             return;
@@ -641,6 +675,9 @@ cc.Class({
             allNodeInCanvas[i].destroy();
         }
     },
+    /**
+     * 获取玩家个数
+     */
     getPlayerLength() {
         if (this.playerContainer == null) {
             return [];
@@ -652,6 +689,9 @@ cc.Class({
         }
         return len;
     },
+    /**
+     * 获取AI玩家个数
+     */
     getAllPlayerAILength() {
         if (this.playerAIContainer == null) {
             return [];
@@ -660,6 +700,9 @@ cc.Class({
         var len = allNodeInCanvas.length;
         return len;
     },
+    /**
+     * 获取普通水滴个数
+     */
     getAllCommonWaterDropLength() {
         if (this.commonWaterDropContainer == null) {
             return [];
@@ -668,196 +711,49 @@ cc.Class({
         var len = allNodeInCanvas.length;
         return len;
     },
-    _initADBanner_() {
-        // oppo start
-        if (typeof qg != "undefined") {
-            // qg.login({
-            //     success: function(res){
-            //         var data = JSON.stringify(res.data);
-            //         console.log(data);
-            //     },
-            //     fail: function(res){
-            //       // errCode、errMsg
-            //         console.log(JSON.stringify(res));
-            //     }
-            // });
-
-            // 创建 Banner 广告实例，提前初始化
-            if (BannerADSinglen == null) {
-                BannerADSinglen = this.bannerAd = qg.createBannerAd({
-                    posId: "134207"
-                })
-            } else {
-                this.bannerAd = BannerADSinglen;
-            }
-            if (BannerADSinglen) {
-                console.log("显示 Banner 广告");
-                BannerADSinglen.show();
-            }
-        }
-        return;
-        // oppo end
-
-        // if(typeof wx === "undefined"){
-        //     // this.showTips("weixin only");
-        //     return;
-        // }
-        // // 创建 Banner 广告实例，提前初始化
-        // let systemInfo = wx.getSystemInfoSync();
-        // let _width = systemInfo.windowWidth/2;
-        // let _height = systemInfo.windowHeight;
-
-        // if(BannerADSinglen == null){
-        //     BannerADSinglen = this.bannerAd = wx.createBannerAd({
-        //         adUnitId: 'adunit-24700a92e658f5cc',
-        //         adIntervals: 30, // 自动刷新频率不能小于30秒
-        //         style: {
-        //             left: 0,
-        //             top : 0,
-        //             // width: 350,
-        //             // height: 300,
-        //         }
-        //     })
-        //     var self = this;
-        //     this.bannerAd.onResize(function(){
-        //         // self.bannerAd.style.left = _width - self.bannerAd.style.realWidth+0.1;
-        //         self.bannerAd.style.left = _width - self.bannerAd.style.realWidth/2+0.1;
-        //         self.bannerAd.style.top = _height - self.bannerAd.style.realHeight+0.1;
-        //         console.log( self.bannerAd);
-        //     })
-        //     this.bannerAd.onError(err => {
-        //         console.log(err);
-        //         // this.showTips("errMsg" + err.errMsg);
-        //     });
-        // }else{
-        //     this.bannerAd = BannerADSinglen;
-        // }
-    },
-    _initADReward_() {
-        // oppo start
-        if (typeof qg != "undefined") {
-            // qg.login({
-            //     success: function(res){
-            //         var data = JSON.stringify(res.data);
-            //         console.log(data);
-            //     },
-            //     fail: function(res){
-            //       // errCode、errMsg
-            //         console.log(JSON.stringify(res));
-            //     }
-            // });
-            // if (RewardADSinglen != null) {
-            //     console.log("RewardADSinglen destroy in game");
-            //     RewardADSinglen.destroy();
-            //     RewardADSinglen == null;
-            // }
-            qg.initAdService({
-                appId: "30209487",
-                isDebug: false,
-                success: function (res) {
-                    console.log("success");
-                },
-                fail: function (res) {
-                    console.log("fail:" + res.code + res.msg);
-                },
-                complete: function (res) {
-                    console.log("complete");
-                }
-            })
-
-            // 创建激励视频广告实例，提前初始化
-            if (RewardADSinglen == null) {
-                RewardADSinglen = this.videoAd = qg.createRewardedVideoAd({
-                    posId: "130416"
-                });
-                // this.videoAd.onLoad(function() {
-                //     console.log("激励视频加载成功");
-                //     // this.videoAd.show();
-                // })
-            } else {
-                this.videoAd = RewardADSinglen;
-            }
-        }
-        return;
-        // oppo end
-
-        // if(typeof wx === "undefined"){
-        //     // cc.log("weixin only");
-        //     return;
-        // }
-        // // 创建激励视频广告实例，提前初始化
-        // if(RewardADSinglen == null){
-        //     RewardADSinglen = this.videoAd = wx.createRewardedVideoAd({
-        //         adUnitId: 'adunit-516da520176dc054'
-        //     })
-        //     this.videoAd.onError(err => {
-        //         console.log(err)
-        //         cc.log(err);
-        //     })
-
-        //     this.videoAd.onClose(res => {
-        //         // 用户点击了【关闭广告】按钮
-        //         // 小于 2.1.0 的基础库版本，res 是一个 undefined
-        //         if (res && res.isEnded || res === undefined) {
-        //             // 正常播放结束，可以下发游戏奖励 _BackToHall_
-        //             console.log("正常播放结束，可以下发游戏奖励  "+this.playerScore);
-        //             EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_,{'data':30});
-        //         }
-        //         else {
-        //             // 播放中途退出，不下发游戏奖励
-        //             console.log('播放中途退出，不下发游戏奖励  '+this.playerScore);
-        //             EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_,{'data':10});
-        //         }
-        //     })
-        // }else{
-        //     this.videoAd = RewardADSinglen;
-        // }
-    },
+    /**
+     * 结算返回大厅
+     * @param {得分倍數} param 
+     */
     _BackToHall_(param) {
         console.log('param[] ' + param['data']);
         this._addGoldToLocal(this.playerScore * param['data']);
         cc.director.loadScene("Login");
     },
-    _showADReward_() {
-        // oppo start
-        if (typeof qg != "undefined") {
-            // this.videoAd.show();
-            var self = this;
-            this.videoAd.offError();
-            this.videoAd.onError(err => {
-                console.log("this.videoAd.onError", err)
-                cc.log(err);
-                self._BackToHall_({ 'data': 10 });
-                // EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_,{'data':10});
+    _initADReward_() {
+        if (typeof wx === "undefined") {
+            // cc.log("weixin only");
+            return;
+        }
+        // 创建激励视频广告实例，提前初始化
+        if (RewardADSinglen == null) {
+            RewardADSinglen = this.videoAd = wx.createRewardedVideoAd({
+                adUnitId: 'adunit-516da520176dc054'
             })
-            this.videoAd.offClose();
+            this.videoAd.onError(err => {
+                console.log(err)
+                cc.log(err);
+            })
+
             this.videoAd.onClose(res => {
                 // 用户点击了【关闭广告】按钮
                 // 小于 2.1.0 的基础库版本，res 是一个 undefined
                 if (res && res.isEnded || res === undefined) {
                     // 正常播放结束，可以下发游戏奖励 _BackToHall_
-                    console.log("正常播放结束，发送观看成功消息 in game");
-                    self._BackToHall_({ 'data': 30 });
-                    // EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_, { 'data': 30 });
+                    console.log("正常播放结束，可以下发游戏奖励  " + this.playerScore);
+                    EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_, { 'data': 30 });
                 }
                 else {
                     // 播放中途退出，不下发游戏奖励
-                    console.log('播放中途退出，发送观看失败消息');
-                    self._BackToHall_({ 'data': 10 });
-                    // EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_, { 'data': 10 });
+                    console.log('播放中途退出，不下发游戏奖励  ' + this.playerScore);
+                    EventCenter.dispatchEvent(EventCenter.EventType._BackToHall_, { 'data': 10 });
                 }
             })
-            this.videoAd.onLoad(function () {
-                console.log("激励视频加载成功");
-                self.videoAd.show();
-            })
-            this.videoAd.load();
-            return true;
         } else {
-            return false;
+            this.videoAd = RewardADSinglen;
         }
-        // oppo end
-
+    },
+    _showADReward_() {
         if (typeof wx === "undefined") {
             // cc.log("weixin only");
             return false;

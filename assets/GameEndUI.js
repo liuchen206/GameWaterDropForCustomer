@@ -18,17 +18,6 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        // this.BtnUp.interactable =false;
-        // this.BtnDowm.interactable =false;
-        // var YposUPNew = -155.634;
-        // var YposDownNew = -288.437;
-        // this.scheduleOnce(function(){
-        //     this._showADBanner_();
-        //     this.BtnUp.node.y = YposUPNew;
-        //     this.BtnDowm.node.y = YposDownNew;
-        //     this.BtnUp.interactable =true;
-        //     this.BtnDowm.interactable =true;
-        // }.bind(this),2.0);
         this._showADBanner_();
     },
     onDestroy() {
@@ -105,16 +94,6 @@ cc.Class({
         this.node.destroy();
     },
     _showADBanner_() {
-        // oppo start
-        if (typeof qg != "undefined") {
-            // 在适合的场景显示 Banner 广告
-            console.log("显示 Banner 广告");
-            if (BannerADSinglen) {
-                BannerADSinglen.show();
-            }
-        }
-        return;
-        // oppo end
         if (typeof wx === "undefined") {
         } else {
             // 在适合的场景显示 Banner 广告

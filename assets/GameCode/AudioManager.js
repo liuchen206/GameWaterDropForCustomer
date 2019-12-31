@@ -47,93 +47,24 @@ cc.Class({
 
     onLoad () {
         cc.game.addPersistRootNode(this.node);
-
-        // this.bgLobbyUrl = 'http://tools.itharbors.com/christmas/res/sounds/ss.mp3';
-        this.bgLobbyUrl = "http://youjiang.gaoji.ren:15050/wechat/Audios/lobbyBGM.mp3";
-        this.bgGameUrl = "http://youjiang.gaoji.ren:15050/wechat/Audios/GameBGM.mp3";
-        this.btnClickUrl = "http://youjiang.gaoji.ren:15050/wechat/Audios/btnClick.mp3";
-        this.glodUrl = "http://youjiang.gaoji.ren:15050/wechat/Audios/gold.mp3";
-        this.loseUrl = "http://youjiang.gaoji.ren:15050/wechat/Audios/lose.mp3";
-        this.mergeUrl = "http://youjiang.gaoji.ren:15050/wechat/Audios/merge.mp3";
-        this.winUrl = "http://youjiang.gaoji.ren:15050/wechat/Audios/win.mp3";
-        // cc.loader.load({url: this.bgLobbyUrl, type: 'mp3'}, this.onProgress.bind(this), this.bgLobbyComplete.bind(this));
-        // cc.loader.load({url: this.bgGameUrl, type: 'mp3'}, this.onProgress.bind(this), this.bgGameComplete.bind(this));
-        // cc.loader.load({url: this.btnClickUrl, type: 'mp3'}, this.onProgress.bind(this), this.btnComplete.bind(this));
-        // cc.loader.load({url: this.glodUrl, type: 'mp3'}, this.onProgress.bind(this), this.glodComplete.bind(this));
-        // cc.loader.load({url: this.loseUrl, type: 'mp3'}, this.onProgress.bind(this), this.loseComplete.bind(this));
-        // cc.loader.load({url: this.mergeUrl, type: 'mp3'}, this.onProgress.bind(this), this.mergeComplete.bind(this));
-        // cc.loader.load({url: this.winUrl, type: 'mp3'}, this.onProgress.bind(this), this.winComplete.bind(this));
         
         this.bgLobbyPlay = null;
         this.bgGamePlay = null;
     },
-    bgLobbyComplete (err, res) {
-        if (err || !res) {
-            console.log(err);
-            return;
-        }
-        this.bgLobbyClip = res;
-        this._playLobbyBGM_();
-    },
-    bgGameComplete (err, res) {
-        if (err || !res) {
-            console.log(err);
-            return;
-        }
-        this.bgGameClip = res;
-    },
-    btnComplete (err, res) {
-        if (err || !res) {
-            console.log(err);
-            return;
-        }
-        this.btnClickClip = res;
-    },
-    glodComplete (err, res) {
-        if (err || !res) {
-            console.log(err);
-            return;
-        }
-        this.goldClip = res;
-    },
-    loseComplete (err, res) {
-        if (err || !res) {
-            console.log(err);
-            return;
-        }
-        this.loseClip = res;
-
-    },
-    mergeComplete (err, res) {
-        if (err || !res) {
-            console.log(err);
-            return;
-        }
-        this.mergeClip = res;
-
-    },
-    winComplete (err, res) {
-        if (err || !res) {
-            console.log(err);
-            return;
-        }
-        this.winClip = res;
-    },
-
-    onProgress (completedCount, totalCount) {
-
-    },
+    
     start () {
     },
 
     // update (dt) {},
-
+    /**
+     * 播放大厅背景音乐
+     */
     _playLobbyBGM_(){
         if(this.bgLobbyClip == null){
             return;
         }
         this.stopGameBGM();
-
+        this._stopLobbyBGM_();
         this.bgLobbyPlay = cc.audioEngine.play(this.bgLobbyClip, true,1);
     },
     _stopLobbyBGM_(){
@@ -142,10 +73,14 @@ cc.Class({
             this.bgLobbyPlay = null;
         }
     },
+    /**
+     * 需求变动之后，游戏内播放的其实是大厅中的音乐
+     */
     playGameBGM(){
         if(this.bgLobbyClip == null){
             return;
         }
+        this.stopGameBGM();
         this._stopLobbyBGM_();
         this.bgGamePlay = cc.audioEngine.play(this.bgLobbyClip, true,1);
     },
@@ -155,30 +90,45 @@ cc.Class({
             this.bgGamePlay = null;
         }
     },
+    /**
+     * 播放胜利音效
+     */
     _playWin_(){
         if(this.winClip == null){
             return;
         }
         this.winPlay = cc.audioEngine.play(this.winClip, false,1);
     },
+    /**
+     * 播放失败音效
+     */
     playlose(){
         if(this.loseClip == null){
             return;
         }
         this.losePlay = cc.audioEngine.play(this.loseClip, false,1);
     },
+    /**
+     * 播放金币音效
+     */
     _playgold_(){
         if(this.goldClip == null){
             return;
         }
         this.goldPlay = cc.audioEngine.play(this.goldClip, false,1);
     },
+    /**
+     * 播放按钮点击音效
+     */
     playbtnClick(){
         if(this.btnClickClip == null){
             return;
         }
         this.btnClickPlay = cc.audioEngine.play(this.btnClickClip, false,1);
     },
+    /**
+     * 播放吞噬水滴音效
+     */
     _playMergeClip_(){
         if(this.mergeClip == null){
             return;

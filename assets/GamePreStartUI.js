@@ -134,16 +134,6 @@ cc.Class({
         }
     },
     _showADBanner_() {
-        // oppo start
-        if (typeof qg != "undefined") {
-            // 在适合的场景显示 Banner 广告
-            if (BannerADSinglen) {
-                BannerADSinglen.show();
-                console.log("显示 Banner 广告");
-            }
-        }
-        return;
-        // oppo end
         if (typeof wx === "undefined") {
         } else {
             // 在适合的场景显示 Banner 广告
